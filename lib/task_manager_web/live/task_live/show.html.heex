@@ -1,0 +1,40 @@
+<.header>
+  Task {@task.id}
+  <:subtitle>This is a task record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/tasks/#{@task}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit task</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Title">{@task.title}</:item>
+  <:item title="Description">{@task.description}</:item>
+  <:item title="Assigned Employee">
+    <%= if @task.employee do %>
+      <p class="text-green-700 font-semibold">
+        ✅ Assigned to <%= @task.employee.name || "unknown" %>
+      </p>
+    <% else %>
+      <p class="text-red-500 font-medium">
+        ⚠️ No employee assigned
+      </p>
+    <% end %>
+  </:item>
+  <:item title="Completed">{@task.completed}</:item>
+
+</.list>
+
+<.back navigate={~p"/tasks"}>Back to tasks</.back>
+
+<.modal :if={@live_action == :edit} id="task-modal" show on_cancel={JS.patch(~p"/tasks/#{@task}")}>
+  <.live_component
+    module={TaskManagerWeb.TaskLive.FormComponent}
+    id={@task.id}
+    title={@page_title}
+    action={@live_action}
+    task={@task}
+    patch={~p"/tasks/#{@task}"}
+  />
+</.modal>

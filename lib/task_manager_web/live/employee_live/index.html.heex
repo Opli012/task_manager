@@ -1,0 +1,45 @@
+<.header>
+  Listing Employees
+  <:actions>
+    <.link patch={~p"/employees/new"}>
+      <.button>New Employee</.button>
+    </.link>
+    <.link patch={~p"/tasks"}>
+      <.button>Listing Tasks</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="employees"
+  rows={@streams.employees}
+  row_click={fn {_id, employee} -> JS.navigate(~p"/employees/#{employee}") end}
+>
+  <:col :let={{_id, employee}} label="Name">{employee.name}</:col>
+  <:col :let={{_id, employee}} label="Email">{employee.email}</:col>
+  <:action :let={{_id, employee}}>
+    <div class="sr-only">
+      <.link navigate={~p"/employees/#{employee}"}>Show</.link>
+    </div>
+    <.link patch={~p"/employees/#{employee}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, employee}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: employee.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="employee-modal" show on_cancel={JS.patch(~p"/employees")}>
+  <.live_component
+    module={TaskManagerWeb.EmployeeLive.FormComponent}
+    id={@employee.id || :new}
+    title={@page_title}
+    action={@live_action}
+    employee={@employee}
+    patch={~p"/employees"}
+  />
+</.modal>
