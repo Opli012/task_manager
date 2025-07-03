@@ -17,7 +17,7 @@ defmodule TaskManagerWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import TaskManagerWeb.Gettext
+  use Gettext, backend: TaskManagerWeb.Gettext
 
   @doc """
   Renders a modal.

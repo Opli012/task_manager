@@ -43,7 +43,7 @@ defmodule TaskManagerWeb do
         layouts: [html: TaskManagerWeb.Layouts]
 
       import Plug.Conn
-      import TaskManagerWeb.Gettext
+      use Gettext, backend: TaskManagerWeb.Gettext
 
       unquote(verified_routes())
     end
@@ -85,7 +85,7 @@ defmodule TaskManagerWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import TaskManagerWeb.CoreComponents
-      import TaskManagerWeb.Gettext
+      use Gettext, backend: TaskManagerWeb.Gettext
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
