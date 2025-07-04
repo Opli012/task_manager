@@ -3,7 +3,7 @@ defmodule TaskManager.Repo.Migrations.AddEmployeeIdToTasks do
 
   def change do
     alter table(:tasks) do
-      add :employee_id, references(:employees, on_delete: :nothing)
+      add :employee_id, references(:employees, on_delete: :nothing), null: true
     end
 
     create index(:tasks, [:employee_id])

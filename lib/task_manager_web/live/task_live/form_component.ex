@@ -28,7 +28,7 @@ defmodule TaskManagerWeb.TaskLive.FormComponent do
           type="select"
           field={@form[:employee_id]}
           label="Assign to Employee"
-          options={Enum.map(@employees, &{&1.name, &1.id})}
+          options={[{"unassigned", nil} | Enum.map(@employees, &{&1.name, &1.id})]}
         />
 
         <:actions>

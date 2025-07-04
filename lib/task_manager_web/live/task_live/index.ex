@@ -34,6 +34,7 @@ defmodule TaskManagerWeb.TaskLive.Index do
 
   @impl true
   def handle_info({TaskManagerWeb.TaskLive.FormComponent, {:saved, task}}, socket) do
+    task = TaskManager.Repo.preload(task, :employee)
     {:noreply, stream_insert(socket, :tasks, task)}
   end
 

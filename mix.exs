@@ -58,9 +58,9 @@ defmodule TaskManager.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-
       {:jose, "~> 1.11"},
-      {:httpoison, "~> 1.8"},   # For HTTP requests, like the access token API call
+      # For HTTP requests, like the access token API call
+      {:httpoison, "~> 1.8"}
     ]
   end
 

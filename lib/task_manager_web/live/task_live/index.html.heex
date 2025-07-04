@@ -17,7 +17,13 @@
 >
   <:col :let={{_id, task}} label="Title">{task.title}</:col>
   <:col :let={{_id, task}} label="Description">{task.description}</:col>
-  <:col :let={{_id, task}} label="Assigned Employee">{task.employee && task.employee.name || "unassigned"}</:col>
+  <:col :let={{_id, task}} label="Assigned Employee">
+    <%= if task.employee do %>
+      <%= task.employee.name %>
+    <% else %>
+      unassigned
+    <% end %>
+  </:col>
   <:col :let={{_id, task}} label="Completed">{task.completed}</:col>
   <:action :let={{_id, task}}>
     <div class="sr-only">

@@ -16,6 +16,6 @@ defmodule TaskManager.Tasks.Task do
   def changeset(task, attrs) do
     task
     |> cast(attrs, [:title, :description, :completed, :employee_id])
-    |> validate_required([:title, :description, :completed, :employee_id])
+    |> validate_required([:title, :description, :completed])
   end
 end
